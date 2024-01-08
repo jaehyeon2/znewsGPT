@@ -39,9 +39,9 @@ public class GPTServiceImpl implements GPTService {
 		
 		PROMPT_QUESTION.delete(0, PROMPT_QUESTION.length());
 		
-		PROMPT_QUESTION.append(HEAD_PROMPT);
+//		PROMPT_QUESTION.append(HEAD_PROMPT);
 		PROMPT_QUESTION.append(content);
-		PROMPT_QUESTION.append(TAIL_PROMPT);
+//		PROMPT_QUESTION.append(TAIL_PROMPT);
 		
 		return PROMPT_QUESTION.toString();
 		
@@ -52,44 +52,54 @@ public class GPTServiceImpl implements GPTService {
 		
 		StringBuffer response = new StringBuffer();
 		HttpURLConnection connection = null;
+		
+		
 		try {
             
-			// 생성할 텍스트 및 요청 데이터 설정
+			// request prompt JSON type data
 			String requestData = "{\"prompt\": \"" + prompt + "\"}";
 
-			// URL 및 연결 생성
+			// URL Connection
 			URL url = new URL(apiUrl);
 			connection = (HttpURLConnection) url.openConnection();
 
-			// HTTP 메서드 설정
+			// HTTP Method POST
 			connection.setRequestMethod("POST");
 
-			// HTTP 요청 헤더 설정
+			// HTTP 
 			connection.setRequestProperty("Content-Type", "application/json");
 			connection.setRequestProperty("Authorization", "Bearer " + apiKey);
 
-			// 요청 본문 작성
+			// Result
 			connection.setDoOutput(true);
 			try (OutputStream os = connection.getOutputStream()) {
 				byte[] input = requestData.getBytes("utf-8");
 				os.write(input, 0, input.length);
 			}
-
-			// HTTP 응답 처리
-			try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream())); ) {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			try {
+			
 				String line;
-				
 				while ((line = reader.readLine()) != null) {
 					response.append(line);
 				}
-				
+				logger.info(response.toString());
+			}catch(Error e){
+				logger.info("error");
+			}finally{
+				reader.close();
 			}
-
+			logger.info("강재현");
+			logger.info("KANG");
 		} catch (IOException e) {
-			e.printStackTrace();
+			
+			logger.info("GPTServiceImpl::receiveAnswer::Error: " + e.getMessage());
+			
 		}finally {
+			
 			connection.disconnect();
-			logger.info("GPTServiceImpl::receiveAnswer::succesly disconnected!!");
+			logger.info("GPTServiceImpl::receiveAnswer:connection successly disconnected!!");
+			
 		}
 		
 		
