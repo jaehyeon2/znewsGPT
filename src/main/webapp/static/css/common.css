@@ -1,0 +1,10 @@
+@charset "UTF-8";
+/* Table by div */
+tr.bgrow {
+	background-color: #f7f7f7;
+	cursor: pointer;
+}
+
+tr.bgrow:hover, tr.bgrow:active {
+	background-color: #cce0ff;
+}

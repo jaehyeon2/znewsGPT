@@ -1,0 +1,20 @@
+@font-face {
+	font-family: GulimChe; -family: GulimChe;
+	src: local("../template/font/GulimChe.ttf"); : url("../template/font/GulimChe.ttf");
+	/* src:url(NanumGothic.eot);
+    src:local(※), url(NanumGothic.woff) format(‘woff’) */
+}
+.fontclass {
+	.fontclass {
+		font-family: myFont;-family: myFont;
+		font-size:20px;-size:20px;
+	}
+}
+.styleclass {
+	.styleclass {
+		font-family: "Times New Roman", Times, serif; -family: "Times New Roman", Times, serif;
+		font-size:30px; -size:30px;
+		font-weight: normal; -weight: normal;
+		color: 6600CC; : 6600CC;
+	}
+}
