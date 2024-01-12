@@ -38,10 +38,10 @@ public class GPTServiceImpl implements GPTService {
 	public String makePrompt(String content) throws Exception {
 		
 		PROMPT_QUESTION.delete(0, PROMPT_QUESTION.length());
-		
-//		PROMPT_QUESTION.append(HEAD_PROMPT);
+		logger.info(content);
+		PROMPT_QUESTION.append(HEAD_PROMPT);
 		PROMPT_QUESTION.append(content);
-//		PROMPT_QUESTION.append(TAIL_PROMPT);
+		PROMPT_QUESTION.append(TAIL_PROMPT);
 		
 		return PROMPT_QUESTION.toString();
 		
@@ -53,12 +53,13 @@ public class GPTServiceImpl implements GPTService {
 		StringBuffer response = new StringBuffer();
 		HttpURLConnection connection = null;
 		
-		
 		try {
             
 			// request prompt JSON type data
 			String requestData = "{\"prompt\": \"" + prompt + "\"}";
 
+			logger.info(TAIL_PROMPT);
+			logger.info(requestData);
 			// URL Connection
 			URL url = new URL(apiUrl);
 			connection = (HttpURLConnection) url.openConnection();
@@ -72,28 +73,28 @@ public class GPTServiceImpl implements GPTService {
 
 			// Result
 			connection.setDoOutput(true);
+			
 			try (OutputStream os = connection.getOutputStream()) {
 				byte[] input = requestData.getBytes("utf-8");
 				os.write(input, 0, input.length);
 			}
-			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			try {
 			
+			logger.info("response code: " + connection.getResponseCode());
+			
+			try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))){
+				
 				String line;
 				while ((line = reader.readLine()) != null) {
 					response.append(line);
 				}
+				
 				logger.info(response.toString());
-			}catch(Error e){
-				logger.info("error");
-			}finally{
-				reader.close();
+				
 			}
-			logger.info("강재현");
-			logger.info("KANG");
+			
 		} catch (IOException e) {
 			
-			logger.info("GPTServiceImpl::receiveAnswer::Error: " + e.getMessage());
+			logger.info("GPTServiceImpl::receiveAnswer::Error: " + e.toString());
 			
 		}finally {
 			
