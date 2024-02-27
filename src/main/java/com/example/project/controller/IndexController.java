@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.project.service.GPTService;
+import com.example.project.service.NaverDatalabService;
 
 @Controller
 public class IndexController {
@@ -18,12 +19,17 @@ public class IndexController {
 	@Autowired
 	private GPTService gptService;
 	
+	@Autowired
+	private NaverDatalabService naverDatalabService;
+	
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	
     @RequestMapping(value={"/", "", "/index"}, method=RequestMethod.GET)
 	public String index(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	logger.info("Index Controller");
     	
+    	logger.info(naverDatalabService.test());
 		return "index";
 	}
 

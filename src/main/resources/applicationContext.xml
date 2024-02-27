@@ -20,6 +20,7 @@
 	<!-- Include the core spring -->
 	
 	<import resource="classpath:spring/gpt.xml"/>
+	<import resource="classpath:spring/service.xml"/>
 	
 	<!-- Users -->
 	
