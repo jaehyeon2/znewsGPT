@@ -22,16 +22,10 @@ public class GPTController {
 	
 	@RequestMapping({"/", "", "/index"})
 	public void gptTest(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		try{
-			logger.info("강재현");
-			logger.info("KANG");
-			System.out.println("강재현");
-			System.out.println("KANG");
-			String result = gptService.receiveAnswer("1+1=");
-			logger.info(result);
-		}catch(Exception e){
-			logger.info("GPTController::gptTest::Error: "+e.getMessage());
-		}
+		
+		String prompt = gptService.makePrompt("1+1=");
+		String result = gptService.receiveAnswer(prompt);
+		logger.info("result: " + result);
 	}
 	
 }
