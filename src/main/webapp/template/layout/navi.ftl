@@ -3,6 +3,14 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #e3f2fd;">
 <div class="container-fluid">
-  <a href="/GPT">test link</a>
+	<ul>
+		<li>
+			<a href="/GPT">test link</a>
+		</li>
+		<li>
+			<a href="/naver-datalab">datalab temp</a>
+		</li>
+  </ul>
+  
 </div>
 </nav>
